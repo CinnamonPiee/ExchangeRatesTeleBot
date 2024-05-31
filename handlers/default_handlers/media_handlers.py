@@ -5,7 +5,7 @@ from aiogram.types import Message
 router = Router()
 
 
-any_media_handler = F.photo | F.video | F.document | F.sticker | F.gif
+any_media_handler = F.photo | F.video | F.document | F.sticker | F.gif | F.survey | F.voice
 
 
 @router.message(any_media_handler, ~F.caption)
