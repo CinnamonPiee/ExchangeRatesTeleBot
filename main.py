@@ -3,19 +3,18 @@ import asyncio
 
 from config_data.config import BOT_TOKEN
 from aiogram import Bot, Dispatcher
-from aiogram import Router
 from handlers import router as main_router
 
 
-bot = Bot(token=BOT_TOKEN)
-dp = Dispatcher()
-
-router = Router()
-
-
 async def main():
+	bot = Bot(token=BOT_TOKEN)
+	
+	dp = Dispatcher()
+
 	logging.basicConfig(level=logging.INFO)
+
 	dp.include_routers(main_router)
+
 	await dp.start_polling(bot)
 
 
