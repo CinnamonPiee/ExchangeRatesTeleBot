@@ -48,3 +48,59 @@ async def document_handler(message: Message):
 async def document_handler_with_caption(message: Message):
 	caption = f'Cool document, your text: {message.caption}'
 	await message.reply(text=caption)
+
+
+@router.message(F.animation, ~F.caption)
+async def animation_handler(message: Message):
+	caption = 'I can`t see this animation. Could you describe it please?'
+	await message.reply_animation(
+		animation=message.animation.file_id,
+		caption=caption)
+	
+
+@router.message(F.animation, F.caption)
+async def animation_handler_with_caption(message: Message):
+	caption = f'Cool animation, your text: {message.caption}'
+	await message.reply(text=caption)
+
+
+@router.message(F.audio, ~F.caption)
+async def audio_handler(message: Message):
+	caption = 'I can`t hear this audio. Could you describe it please?'
+	await message.reply_audio(
+		audio=message.audio.file_id,
+		caption=caption)
+
+
+@router.message(F.audio, F.caption)
+async def audion_handler_with_caption(message: Message):
+	caption = f'Cool audio, your text: {message.caption}'
+	await message.reply(text=caption)
+
+
+@router.message(F.contact, ~F.caption)
+async def contact_handler(message: Message):
+	caption = 'I can`t see this contact. Could you describe it please?'
+	await message.reply_contact(
+		contact=message.contact.file_id,
+		caption=caption)
+
+
+@router.message(F.contact, F.caption)
+async def contact_handler_with_caption(message: Message):
+	caption = f'Cool contact, your text: {message.caption}'
+	await message.reply(text=caption)
+
+
+@router.message(F.dice, ~F.caption)
+async def dice_handler(message: Message):
+	caption = 'I can`t hear this dice. Could you describe it please?'
+	await message.reply_dice(
+		dice=message.dice.file_id,
+		caption=caption)
+
+
+@router.message(F.dice, F.caption)
+async def dice_handler_with_caption(message: Message):
+	caption = f'Cool dice, your text: {message.caption}'
+	await message.reply(text=caption)
