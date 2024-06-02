@@ -1,9 +1,9 @@
-from aiogram import Router, F
+from aiogram import Router
 from aiogram.types import Message
 from aiogram.filters import Command
 
 
-router = Router()
+router = Router(name=__name__)
 
 
 @router.message(Command('help'))
