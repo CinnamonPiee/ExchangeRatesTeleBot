@@ -6,7 +6,7 @@ def start_keyboard():
 	button2 = KeyboardButton(text='Country banks 🏦')
 	button3 = KeyboardButton(text='Support ⚙️')
 	button4 = KeyboardButton(text='Help ❓')
-	button5 = KeyboardButton(text='About bot ❗️')
+	button5 = KeyboardButton(text='About Bot ❗️')
 	button6 = KeyboardButton(text='Feedback 📧')
 
 	keyboard = ReplyKeyboardMarkup(
