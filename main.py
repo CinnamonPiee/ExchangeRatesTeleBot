@@ -4,7 +4,6 @@ import asyncio
 from config_data.config import BOT_TOKEN
 from aiogram import Bot, Dispatcher
 from aiogram import Router
-from handlers.default_handlers import echo, help, start, media_handlers
 from handlers import router as main_router
 
 

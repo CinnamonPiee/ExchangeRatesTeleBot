@@ -12,4 +12,6 @@ router = Router(name=__name__)
 router.include_router(start_router)
 router.include_router(help_router)
 router.include_router(media_router)
+
+# this router is last!
 router.include_router(echo_router)
