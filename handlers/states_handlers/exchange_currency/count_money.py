@@ -1,8 +1,10 @@
 from aiogram import Router, F
 from aiogram import types
 
-from aiogram.types import Message
+from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
+from aiogram.fsm.state import any_state
+from aiogram.filters.command import Command
 
 from states.exchange_currency import ExchangeRates
 from keyboards.reply.exchange_currency_kb import exchange_rates_reply_keyboard
@@ -30,6 +32,23 @@ async def count_money_back(message: Message, state: FSMContext):
 		text='Ok. Now let`s choose second currency to exchange.',
 		reply_markup=exchange_rates_reply_keyboard(),
 		)
+	
+
+@router.message(Command('cancel'), any_state)
+@router.message(F.text == 'cancel', any_state)
+async def cancel_handler(message: Message, state: FSMContext) -> None:
+	current_state = await state.get_state()
+	if current_state is None:
+		await message.reply(
+			text='OK, but nothing was going on.',
+			reply_markup=ReplyKeyboardRemove())
+		return
+	
+	await state.clear()
+	await message.answer(
+		text='Cancelled state.',
+		reply_markup=ReplyKeyboardRemove(),
+	)
 
 
 @router.message(ExchangeRates.count_money, F.text)

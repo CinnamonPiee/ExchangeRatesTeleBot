@@ -4,6 +4,7 @@ from aiogram import types
 from aiogram.filters import Command
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
+from aiogram.fsm.state import default_state
 
 from email_validator import validate_email
 from states.registration import Survey
@@ -13,7 +14,7 @@ from keyboards.reply.yes_or_no_kb import yes_or_no_keyboard
 router = Router(name=__name__)
 
 
-@router.message(Command('registration', prefix='/'))
+@router.message(Command('registration', prefix='/'), default_state)
 async def survey_start(message: Message, state: FSMContext):
 	await state.set_state(Survey.name)
 	await message.answer(
