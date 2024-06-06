@@ -5,8 +5,8 @@ from aiogram.filters import Command
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 
+from email_validator import validate_email
 from states.survey import Survey
-from utils.email_valid import valid_email_filter
 from keyboards.reply.yes_or_no import yes_or_no_keyboard
 
 
@@ -51,7 +51,7 @@ async def survey_city(message: Message, state: FSMContext):
 		text=f'I never been in {message.text}. Now write me your email.',)
 	
 
-@router.message(Survey.email, valid_email_filter)
+@router.message(Survey.email, F.text.cast(validate_email).normalized.as_("email"))
 async def survey_email(
 	message: Message, 
 	state: FSMContext,
