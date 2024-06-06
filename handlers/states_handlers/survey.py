@@ -2,9 +2,9 @@ from aiogram import Router, F
 from aiogram import types
 
 from aiogram.filters import Command
-from aiogram.types import Message
+from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
-from aiogram.fsm.state import default_state
+from aiogram.fsm.state import default_state, any_state
 
 from email_validator import validate_email
 from states.registration import Survey
@@ -21,6 +21,23 @@ async def survey_start(message: Message, state: FSMContext):
 		text='Welcome to our weekly survey! What`s your name?',
 		reply_markup=types.ReplyKeyboardRemove(),) 
 	
+
+@router.message(Command('cancel'), any_state)
+@router.message(F.text == 'cancel', any_state)
+async def cancel_handler(message: Message, state: FSMContext) -> None:
+	current_state = await state.get_state()
+	if current_state is None:
+		await message.reply(
+			text='OK, but nothing was going on.',
+			reply_markup=ReplyKeyboardRemove())
+		return
+	
+	await state.clear()
+	await message.answer(
+		text='Cancelled state.',
+		reply_markup=ReplyKeyboardRemove(),
+	)
+
 
 @router.message(Survey.name, F.text)
 async def survey_name(message: Message, state: FSMContext):
