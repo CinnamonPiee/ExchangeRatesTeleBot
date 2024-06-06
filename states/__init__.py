@@ -1,2 +1,2 @@
-from . import survey
+from . import registration
 from . import exchange_currency
