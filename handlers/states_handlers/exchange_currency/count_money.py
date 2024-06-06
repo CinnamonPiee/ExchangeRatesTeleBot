@@ -4,9 +4,9 @@ from aiogram import types
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 
-from states.exchange_rates import ExchangeRates
-from keyboards.reply.exchange_rates_reply_kb import exchange_rates_reply_keyboard
-from keyboards.reply.back_button import back_button_reply_kb
+from states.exchange_currency import ExchangeRates
+from keyboards.reply.exchange_currency_kb import exchange_rates_reply_keyboard
+from keyboards.reply.back_button_kb import back_button_reply_kb
 
 
 router = Router(name=__name__)

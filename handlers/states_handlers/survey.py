@@ -7,7 +7,7 @@ from aiogram.fsm.context import FSMContext
 
 from email_validator import validate_email
 from states.survey import Survey
-from keyboards.reply.yes_or_no import yes_or_no_keyboard
+from keyboards.reply.yes_or_no_kb import yes_or_no_keyboard
 
 
 router = Router(name=__name__)
