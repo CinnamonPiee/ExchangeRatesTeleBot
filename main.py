@@ -3,7 +3,6 @@ import asyncio
 
 from config_data.config import BOT_TOKEN
 from aiogram import Bot, Dispatcher
-from aiogram.enums import ParseMode
 from aiogram.client.default import DefaultBotProperties
 from handlers import router as main_router
 

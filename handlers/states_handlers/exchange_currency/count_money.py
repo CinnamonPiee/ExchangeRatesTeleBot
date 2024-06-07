@@ -5,6 +5,8 @@ from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import any_state
 from aiogram.filters.command import Command
+from config_data.config import CURRENCY_DATA
+from api.get_amount import get_amount
 
 from states.exchange_currency import ExchangeRates
 from keyboards.reply.exchange_currency_kb import exchange_rates_reply_keyboard
@@ -19,6 +21,7 @@ async def send_exchange_info(message: Message, data: dict) -> None:
 			f'First currency: {data['first_rate']}\n' \
 			f'Second currency: {data['second_rate']}\n' \
 			f'Count money: {data['count_money']}\n' \
+			f'Amount: {get_amount(data['first_rate'][0:3], data['second_rate'][0:3], data["count_money"])}'\
 
 	await message.answer(
 		text=text,
@@ -27,9 +30,13 @@ async def send_exchange_info(message: Message, data: dict) -> None:
 
 @router.message(ExchangeRates.count_money, F.text == 'Back')
 async def count_money_back(message: Message, state: FSMContext):
+	CURRENCY_DATA = CURRENCY_DATA[:-1]
 	await state.set_state(ExchangeRates.second_rate)
 	await message.answer(
-		text='Ok. Now let`s choose second currency to exchange.',
+		text='\n'\
+			f'\t{CURRENCY_DATA[0]} -->\t\n'\
+			 '\n'
+			 'Ok. Now let`s choose second currency to exchange.',
 		reply_markup=exchange_rates_reply_keyboard(),
 		)
 	
@@ -53,6 +60,7 @@ async def cancel_handler(message: Message, state: FSMContext) -> None:
 
 @router.message(ExchangeRates.count_money, F.text)
 async def count_money(message: Message, state: FSMContext):
+	CURRENCY_DATA.clear()
 	data = await state.update_data(count_money=message.text)
 	await send_exchange_info(message, data)
 	await state.clear()

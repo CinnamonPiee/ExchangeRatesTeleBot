@@ -8,7 +8,7 @@ from aiogram.fsm.state import any_state
 from states.exchange_currency import ExchangeRates
 from keyboards.reply.exchange_currency_kb import exchange_rates_reply_keyboard
 from keyboards.reply.another_exchange_currency_kb import another_exchange_rates_reply_kb
-from config_data.config import ANOTHER_CUR_DATA
+from config_data.config import ANOTHER_CUR_DATA, CURRENCY_DATA
 
 
 router = Router(name=__name__)
@@ -16,10 +16,14 @@ router = Router(name=__name__)
 
 @router.message(ExchangeRates.another_rate_first, F.text.in_(ANOTHER_CUR_DATA))
 async def another_cur(message: Message, state: FSMContext):
+	CURRENCY_DATA.append(message.text)
 	await state.update_data(first_rate=message.text)
 	await state.set_state(ExchangeRates.second_rate)
 	await message.answer(
-		text='Ok. Now let`s choose second currency to exchange.',
+		text='\n'\
+			f'\t{CURRENCY_DATA[0]} -->\t\n'\
+			 '\n'
+			 'Ok. Now let`s choose second currency to exchange.',
 		reply_markup=exchange_rates_reply_keyboard(),
 		)
 

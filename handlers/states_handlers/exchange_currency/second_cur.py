@@ -9,19 +9,22 @@ from states.exchange_currency import ExchangeRates
 from keyboards.reply.back_button_kb import back_button_reply_kb
 from keyboards.reply.exchange_currency_kb import exchange_rates_reply_keyboard
 from keyboards.reply.another_exchange_currency_kb import another_exchange_rates_reply_kb
-from config_data.config import DEFAULT_CUR_DATA
+from config_data.config import DEFAULT_CUR_DATA, CURRENCY_DATA
 
 
 router = Router(name=__name__)
 
 
-
 @router.message(ExchangeRates.second_rate, F.text.in_(DEFAULT_CUR_DATA))
 async def second_rate(message: Message, state: FSMContext):
+	CURRENCY_DATA.append(message.text)
 	await state.set_state(ExchangeRates.count_money)
 	await state.update_data(second_rate=message.text)
 	await message.answer(
-		text='Ok. Now write how much money you need to exchange.',
+		text='\n'\
+			f'\t{CURRENCY_DATA[0]} --> {CURRENCY_DATA[1]}\t\n'\
+			 '\n'
+			 'Ok. Now write how much money you need to exchange.',
 		reply_markup=back_button_reply_kb(),
 		)
 	

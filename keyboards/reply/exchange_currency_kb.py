@@ -9,7 +9,7 @@ def exchange_rates_reply_keyboard() -> ReplyKeyboardMarkup:
 	builder.button(text=f'USD {get_flag('US')}')
 	builder.button(text=f'EUR {get_flag('EU')}')
 	builder.button(text=f'GBR {get_flag('GB')}')
-	builder.button(text=f'GEO {get_flag('GE')}')
+	builder.button(text=f'GEL {get_flag('GE')}')
 	builder.button(text='Another rate...')
 	builder.button(text='Back')
 	

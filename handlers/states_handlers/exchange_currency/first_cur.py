@@ -9,7 +9,8 @@ from states.exchange_currency import ExchangeRates
 from keyboards.reply.start_kb import start_keyboard
 from keyboards.reply.exchange_currency_kb import exchange_rates_reply_keyboard
 from keyboards.reply.another_exchange_currency_kb import another_exchange_rates_reply_kb
-from config_data.config import DEFAULT_CUR_DATA
+from config_data.config import DEFAULT_CUR_DATA, CURRENCY_DATA
+
 
 
 router = Router(name=__name__)
@@ -43,11 +44,15 @@ async def cancel_handler(message: Message, state: FSMContext) -> None:
 	
 
 @router.message(ExchangeRates.first_rate, F.text.in_(DEFAULT_CUR_DATA))
-async def first_rate(message: Message, state: FSMContext):
+async def first_rate(message: Message, state: FSMContext): 
+	CURRENCY_DATA.append(message.text)
 	await state.set_state(ExchangeRates.second_rate)
 	await state.update_data(first_rate=message.text)
 	await message.answer(
-		text='Ok. Now let`s choose second currency to exchange.',
+		text='\n'\
+			f'\t{CURRENCY_DATA[0]} -->\t\n'\
+			 '\n'
+			 'Ok. Now let`s choose second currency to exchange.',
 		reply_markup=exchange_rates_reply_keyboard(),
 		)
 	
