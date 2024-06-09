@@ -21,7 +21,7 @@ async def exchange_rates_start(message: Message, state: FSMContext):
 	await state.set_state(ExchangeRates.first_rate)
 	await message.answer(
 		text='Choose currency what you want to exchange.\n'\
-			 ' If you want to cancel this, write /cancel command.',
+			 'If you want to cancel this, write /cancel command.',
 		reply_markup=exchange_rates_reply_keyboard(),
 		)
 	

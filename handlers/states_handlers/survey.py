@@ -18,7 +18,8 @@ router = Router(name=__name__)
 async def survey_start(message: Message, state: FSMContext):
 	await state.set_state(Survey.name)
 	await message.answer(
-		text='Welcome to our weekly survey! What`s your name?',
+		text='Welcome to our weekly survey! What`s your name?\n'\
+			 'If you want to cancel this, write /cancel command.',
 		reply_markup=types.ReplyKeyboardRemove(),) 
 	
 
@@ -77,7 +78,7 @@ async def survey_email(
 	await state.update_data(email=email)
 	await state.set_state(Survey.email_newsletter)
 	await message.answer(
-		text=f'Cool, your email is now {email}.'
+		text=f'Cool, your email is now {email}.\n'\
 			  'Would you like to be contacted in future?',
 			  reply_markup=yes_or_no_keyboard(),)
 	
@@ -118,7 +119,9 @@ async def send_survey_results(message: Message, data: dict) -> None:
 		   f'City: {data['city']}\n' \
 		   f'Email: {data['email']}\n' \
 		   f'Newsletter: {data['newsletter_ok']}\n' \
-		   f'Phone number: {data['number']}\n'
+		   f'Phone number: {data['number']}\n' \
+			'\n' \
+			'Thank you for information!'
 	await message.answer(
 		text=text,
 		reply_markup=types.ReplyKeyboardRemove(),)
