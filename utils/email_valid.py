@@ -9,7 +9,7 @@ def valid_email_filter(message: Message) -> dict[str, str] | None:
 	except EmailNotValidError:
 		return None
 	
-	return {'email': email.normalized}
+	return {"email": email.normalized}
 
 
 def valid_email(text: str) -> str | None:

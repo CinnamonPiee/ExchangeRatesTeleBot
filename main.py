@@ -10,7 +10,7 @@ from handlers import router as main_router
 async def main():
 	bot = Bot(
 		token=BOT_TOKEN,
-		default=DefaultBotProperties(parse_mode='HTML'),)
+		default=DefaultBotProperties(parse_mode="HTML"),)
 	
 	dp = Dispatcher()
 
@@ -21,5 +21,5 @@ async def main():
 	await dp.start_polling(bot)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 	asyncio.run(main())

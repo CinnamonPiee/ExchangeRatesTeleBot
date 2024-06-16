@@ -5,13 +5,13 @@ from utils.get_flag import get_flag
 
 def exchange_rates_reply_keyboard() -> ReplyKeyboardMarkup:
 	builder = ReplyKeyboardBuilder()
-	builder.button(text=f'RUB {get_flag('RU')}')
-	builder.button(text=f'USD {get_flag('US')}')
-	builder.button(text=f'EUR {get_flag('EU')}')
-	builder.button(text=f'GBR {get_flag('GB')}')
-	builder.button(text=f'GEL {get_flag('GE')}')
-	builder.button(text='Another rate...')
-	builder.button(text='Back')
+	builder.button(text=f"RUB {get_flag("RU")}")
+	builder.button(text=f"USD {get_flag("US")}")
+	builder.button(text=f"EUR {get_flag("EU")}")
+	builder.button(text=f"GBP {get_flag("GB")}")
+	builder.button(text=f"GEL {get_flag("GE")}")
+	builder.button(text="Another rate...")
+	builder.button(text="Back")
 	
 	builder.adjust(5, 2)
 

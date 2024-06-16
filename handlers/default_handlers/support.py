@@ -7,12 +7,15 @@ from keyboards.reply.start_kb import start_keyboard
 router = Router(name=__name__)
 
 
-@router.message(F.text == 'Support ⚙️')
+@router.message(F.text == "Support ⚙️")
 async def support_handler(message: Message):
 	await message.answer(
-		text='You can write to the\n'
-			 'developer about the problem\n'
-			 'with the bot using this\n'
-			 f'{markdown.hlink('link', 'https://t.me/Simon_Sh1')}.',
+		text="You can write to the\n"
+			 "developer about the problem\n"
+			 "with the bot using this\n"
+			 f"{markdown.hlink("link", "https://t.me/Simon_Sh1")}."
+			 "You can also offer options"
+			 "for currency pairs if you"
+			 "need them in the bot.",
 			 reply_markup=start_keyboard())
 		
